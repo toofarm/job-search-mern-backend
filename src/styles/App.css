@@ -1,0 +1,115 @@
+.login-form {
+  padding: 25px 0; }
+  .login-form input {
+    margin: 12px 0;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #666;
+    font-size: 23px;
+    padding: 7px; }
+  .login-form label {
+    display: block;
+    font-size: 23px;
+    text-align: center; }
+  .login-form button {
+    display: inline-block;
+    margin: 8px 0;
+    font-size: 23px;
+    background-color: #eee;
+    border: 1px solid #666;
+    border-radius: 4px;
+    padding: 8px;
+    transition: 0.3s all; }
+  .login-form button:hover {
+    cursor: pointer;
+    background-color: #fff; }
+  .login-form .sign-up {
+    margin: 20px 0;
+    font-size: 18px; }
+  .login-form .other-opt-link {
+    margin: 25px 0;
+    font-size: 18px; }
+
+.dashboard-wrap {
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 45px; }
+  .dashboard-wrap .dash-input-holder {
+    border: 1px solid #666;
+    display: inline-block;
+    padding: 12px;
+    width: 35%;
+    border-radius: 4px; }
+    .dashboard-wrap .dash-input-holder h3 {
+      font-size: 26px; }
+
+body {
+  background-color: #E5F2C5; }
+
+h1 a:hover {
+  color: #ddd; }
+
+h2 {
+  font-size: 1.8em; }
+
+a {
+  color: #0F646F;
+  text-decoration: none; }
+
+a:hover {
+  color: #31A79B; }
+
+.main-wrap {
+  text-align: center;
+  margin-bottom: 100px;
+  background-color: #E5F2C5; }
+
+header {
+  background-color: #0B273D;
+  height: 100px;
+  padding: 20px;
+  position: relative; }
+  header a {
+    color: white; }
+
+#app-title {
+  font-size: 2em;
+  color: #ddd; }
+
+.error {
+  color: red;
+  font-style: italic;
+  font-size: 20px; }
+
+.em-sent {
+  margin-top: 20px;
+  font-size: 18px; }
+
+.main-nav {
+  list-style: none;
+  position: absolute;
+  bottom: 35px;
+  padding: 0; }
+  .main-nav li {
+    display: inline-block;
+    margin-right: 15px; }
+    .main-nav li a {
+      text-decoration: none;
+      font-size: 20px;
+      transition: 0.3s all;
+      color: white;
+      background-color: transparent;
+      border: none;
+      display: inline;
+      cursor: pointer; }
+    .main-nav li a:hover {
+      border-bottom: 2px solid #31A79B;
+      color: #31A79B; }
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
