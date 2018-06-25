@@ -1,41 +1,51 @@
 import React from 'react'
 import axios from 'axios'
-import Reset from './ResetPw'
+import { connect } from 'react-redux'
+import { compose } from 'recompose'
 
-export class Dashboard extends React.Component {
+import withAuthorization from './withAuthorization'
+import PasswordChange from './PasswordChange'
+import PasswordForget from './PasswordForget'
+import AuthUserContext from './AuthUserContext'
+
+const Dashboard = ({ authUser }) => 
+    <div className="dash-meat-wrap">
+        <h2>Hello, {authUser.email}</h2>
+
+        {authUser ? <DashboardWidgets />
+            : null
+        }
+    </div>
+
+export class DashboardWidgets extends React.Component {
     constructor(props) {
         super(props);
-
-        this.updatePwSubmit = this.updatePwSubmit.bind(this)
-    }
-
-    componentDidMount() {
-        console.log('we have Dashboard')
-    }
-
-    updatePwSubmit(e) {
-        e.preventDefault()
-        console.log('updating password')
-        // axios.get(this.props.api + 'login')
     }
 
     render() {
-        return <div className="dash-meta-wrap">
-            <h2>Hello, stranger</h2>
-            <div className="dashboard-wrap">
+        return (
+            <div>
+                <div className="dashboard-wrap">
                     <div className="dash-input-holder">
-                        <div className="login-form">
-                        <h3>Change password</h3>
-                        <input type='text' name='new-pw' id='new-pw' placeholder="New password" required/><br/>
-                        <input type='text' name='old-pw' id='old-pw' placeholder="Old password" required/><br/>
-                        <button id="login-submit"
-                        onClick={this.updatePwSubmit}>Update password</button>
-                        </div>
+                    <h3>Change password</h3>
+                        <PasswordChange />
                     </div>
-                    <Reset />
+                <div className="dash-input-holder">
+                    <PasswordForget />
+                </div>
+                </div>
             </div>
-        </div>
+        )
     }
 }
 
-export default Dashboard
+const mapStateToProps = (state) => ({
+    authUser: state.sessionState.authUser,
+  });
+
+const authCondition = (authUser) => !!authUser
+
+export default compose(
+    withAuthorization(authCondition),
+    connect(mapStateToProps)
+  )(Dashboard);

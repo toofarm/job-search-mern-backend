@@ -23,6 +23,10 @@
   .login-form button:hover {
     cursor: pointer;
     background-color: #fff; }
+  .login-form button[disabled] {
+    cursor: initial;
+    background-color: #eee;
+    pointer-events: none; }
   .login-form .sign-up {
     margin: 20px 0;
     font-size: 18px; }
@@ -107,6 +111,10 @@ header {
     .main-nav li a:hover {
       border-bottom: 2px solid #31A79B;
       color: #31A79B; }
+
+.ui-info {
+  font-style: italic;
+  color: #0F646F; }
 
 @keyframes App-logo-spin {
   from {

@@ -27,6 +27,11 @@
         cursor: pointer;
         background-color: #fff;
     }
+    button[disabled] {
+        cursor: initial;
+        background-color: #eee;
+        pointer-events: none;
+    }
     .sign-up {
         margin: 20px 0;
         font-size: 18px;

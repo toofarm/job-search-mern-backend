@@ -4,7 +4,7 @@ import {
     withRouter,
 } from 'react-router-dom';
 
-import { auth } from '../firebase'
+import { auth, users } from '../firebase'
 import * as routes from '../constants/routes';
 
 
@@ -46,11 +46,18 @@ class SignUpForm extends Component {
   
       auth.doCreateUserWithEmailAndPassword(email, passwordOne)
         .then(authUser => {
-          this.setState(() => ({ ...INITIAL_STATE }));
-          history.push(routes.HOME)
+          // Create a user in your own accessible Firebase Database too
+          users.doCreateUser(authUser.user.uid, username, email)
+          .then(() => {
+            this.setState(() => ({ ...INITIAL_STATE }))
+            history.push(routes.HOME)
+          })
+          .catch(error => {
+            this.setState(byPropKey('error', error))
+          })
         })
         .catch(error => {
-          this.setState(byPropKey('error', error));
+          this.setState(byPropKey('error', error))
         });
   
       event.preventDefault();
@@ -65,11 +72,18 @@ class SignUpForm extends Component {
         error
     } = this.state
 
+    const pwMatch =
+      passwordOne === passwordTwo
+
+    const pwWrongFormat =
+      passwordOne.length < 8 ||
+      passwordOne.search(/\d/) === -1
+
     const isInvalid =
-      passwordOne !== passwordTwo ||
+      !pwMatch ||
       passwordOne === '' ||
       email === '' ||
-      username === '';
+      username === ''
 
     return (
       <div>
@@ -86,6 +100,12 @@ class SignUpForm extends Component {
           type="text"
           placeholder="Email Address"
         /><br/>
+        { !pwMatch && <div className="ui-info">
+            Your passwords do not match
+        </div> }
+        { !isInvalid && pwWrongFormat && <div className="ui-info">
+            Your password must be at least 8 characters long and contain at least one number
+        </div>}
         <input
           value={passwordOne}
           onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
@@ -101,7 +121,7 @@ class SignUpForm extends Component {
         <button disabled={isInvalid} type="submit">
           Sign Up
         </button>
-        { error && <p>{error.message}</p> }
+        { error && <p className="ui-info">{error.message}</p> }
       </form>
         <Link to={routes.SIGN_IN}>Already have an account?</Link>
       </div>

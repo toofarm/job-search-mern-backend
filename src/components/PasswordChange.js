@@ -10,7 +10,8 @@ const INITIAL_STATE = {
   passwordOne: '',
   passwordTwo: '',
   error: null,
-};
+  resetSuccess: false
+}
 
 class PasswordChangeForm extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class PasswordChangeForm extends Component {
     auth.doPasswordUpdate(passwordOne)
       .then(() => {
         this.setState(() => ({ ...INITIAL_STATE }));
+        this.setState(byPropKey('resetSuccess', true));
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
@@ -44,8 +46,18 @@ class PasswordChangeForm extends Component {
       passwordOne !== passwordTwo ||
       passwordOne === '';
 
+    const pwWrongFormat =
+      passwordOne.length < 8 ||
+      passwordOne.search(/\d/) === -1
+
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this.onSubmit} className="login-form">
+        { this.state.passwordOne !== this.state.passwordTwo && <div className="ui-info">
+            Your passwords do not match
+        </div> }
+        { !isInvalid && pwWrongFormat && <div className="ui-info">
+            Your password must be at least 8 characters long and contain at least one number
+        </div>}
         <input
           value={passwordOne}
           onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
@@ -58,11 +70,13 @@ class PasswordChangeForm extends Component {
           type="password"
           placeholder="Confirm New Password"
         />
-        <button disabled={isInvalid} type="submit">
+        <button disabled={isInvalid  || pwWrongFormat} type="submit">
           Reset My Password
         </button>
-
-        { error && <p>{error.message}</p> }
+        { this.state.resetSuccess && <div className="ui-info">
+            Your password has been updated
+        </div> }
+        { error && <p className="erro">{error.message}</p> }
       </form>
     );
   }

@@ -9,6 +9,7 @@ import Dashboard from './Dashboard'
 import PasswordForget from './PasswordForget'
 import SignUpForm from './SignUpForm'
 import SignIn from './SignIn'
+import HomePage from './Home'
 import withAuthentication from './withAuthentication'
 
 import * as routes from '../constants/routes'
@@ -37,6 +38,10 @@ const App = () =>
       <Route
         exact path={routes.ACCOUNT}
         component={() => <Dashboard />}
+      />
+      <Route
+        exact path={routes.HOME}
+        component={() => <HomePage />}
       />
     </div>
   </div>

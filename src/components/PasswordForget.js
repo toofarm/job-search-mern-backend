@@ -5,7 +5,7 @@ import { auth } from '../firebase'
 
 const PasswordForgetPage = () =>
   <div>
-    <h2>PasswordForget</h2>
+    <h3>Forgot Password?</h3>
     <PasswordForgetForm />
   </div>
 
@@ -62,10 +62,10 @@ class PasswordForgetForm extends Component {
           Reset My Password
         </button>
         { emailSent &&
-        <div className="em-sent">
+        <div className="ui-info">
             Check your email for a link to reset your password
         </div>}
-        { error && <p class="error">{error.message}</p> }
+        { error && <p className="error">{error.message}</p> }
       </form>
     )
   }

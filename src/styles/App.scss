@@ -79,6 +79,11 @@ header {
   }
 }
 
+.ui-info {
+  font-style: italic;
+  color: $highlight-darker;
+}
+
 //////////ANIMATIONS//////////////
 
 @keyframes App-logo-spin {
