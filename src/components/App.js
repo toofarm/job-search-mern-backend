@@ -11,17 +11,20 @@ import SignUpForm from './SignUpForm'
 import SignIn from './SignIn'
 import HomePage from './Home'
 import withAuthentication from './withAuthentication'
+import AuthUserContext from './AuthUserContext'
 
 import * as routes from '../constants/routes'
 
-const App = () => 
+const App = ({ authUser }) => 
   <Router>
   <div>
     <Navigation />
     <div className="main-wrap">
       <Route
         exact path={routes.LANDING}
-        component={() => <SignIn />}
+        component={(authUser) => authUser ? 
+        <Dashboard /> : 
+        <SignIn />}
       />
       <Route
         exact path={routes.SIGN_UP}

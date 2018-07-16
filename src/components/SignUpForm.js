@@ -46,6 +46,12 @@ class SignUpForm extends Component {
   
       auth.doCreateUserWithEmailAndPassword(email, passwordOne)
         .then(authUser => {
+          // Set the user's profile information
+          let user = auth.currentUser
+          user.updateProfile({
+            dsiplayName: username,
+          })
+
           // Create a user in your own accessible Firebase Database too
           users.doCreateUser(authUser.user.uid, username, email)
           .then(() => {
@@ -87,42 +93,42 @@ class SignUpForm extends Component {
 
     return (
       <div>
-      <form onSubmit={this.onSubmit} className="login-form">
-        <input
-          value={username}
-          onChange={event => this.setState(byPropKey('username', event.target.value))}
-          type="text"
-          placeholder="Full Name"
-        /><br/>
-        <input
-          value={email}
-          onChange={event => this.setState(byPropKey('email', event.target.value))}
-          type="text"
-          placeholder="Email Address"
-        /><br/>
-        { !pwMatch && <div className="ui-info">
-            Your passwords do not match
-        </div> }
         { !isInvalid && pwWrongFormat && <div className="ui-info">
             Your password must be at least 8 characters long and contain at least one number
         </div>}
-        <input
-          value={passwordOne}
-          onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
-          type="password"
-          placeholder="Password"
-        /><br/>
-        <input
-          value={passwordTwo}
-          onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
-          type="password"
-          placeholder="Confirm Password"
-        /><br/>
-        <button disabled={isInvalid} type="submit">
-          Sign Up
-        </button>
-        { error && <p className="ui-info">{error.message}</p> }
-      </form>
+        { !pwMatch && <div className="ui-info">
+              Your passwords do not match
+          </div> }
+        <form onSubmit={this.onSubmit} className="login-form">
+          <input
+            value={username}
+            onChange={event => this.setState(byPropKey('username', event.target.value))}
+            type="text"
+            placeholder="Username"
+          /><br/>
+          <input
+            value={email}
+            onChange={event => this.setState(byPropKey('email', event.target.value))}
+            type="text"
+            placeholder="Email Address"
+          /><br/>
+          <input
+            value={passwordOne}
+            onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
+            type="password"
+            placeholder="Password"
+          /><br/>
+          <input
+            value={passwordTwo}
+            onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
+            type="password"
+            placeholder="Confirm Password"
+          /><br/>
+          <button disabled={isInvalid} type="submit">
+            Sign Up
+          </button>
+          { error && <p className="ui-info">{error.message}</p> }
+        </form>
         <Link to={routes.SIGN_IN}>Already have an account?</Link>
       </div>
     );

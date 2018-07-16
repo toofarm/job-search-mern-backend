@@ -8,5 +8,11 @@ export const doCreateUser = (id, username, email) =>
     email,
   })
 
+export const doCreateJob = (id, position, company) =>
+  db.ref(`users/${id}`).set({
+    position,
+    company
+  })
+
 export const onceGetUsers = () =>
   db.ref('users').once('value')

@@ -49,6 +49,39 @@
     .dashboard-wrap .dash-input-holder h3 {
       font-size: 26px; }
 
+.single-job-entry {
+  margin: 0 auto;
+  display: block; }
+  .single-job-entry .jobs-txt-wrap {
+    display: inline-block;
+    margin: 15px 0;
+    padding: 12px;
+    border: 2px solid #666;
+    border-radius: 4px; }
+    .single-job-entry .jobs-txt-wrap .job-item {
+      display: inline-block;
+      margin: 0 4px; }
+      .single-job-entry .jobs-txt-wrap .job-item .job-item-label {
+        color: #666; }
+    .single-job-entry .jobs-txt-wrap .delete-job-entry {
+      color: #666;
+      margin: 12px 0;
+      font-size: 18px;
+      background: none;
+      border: 2px solid #666;
+      border-radius: 4px;
+      transition: 0.3s all; }
+    .single-job-entry .jobs-txt-wrap .delete-job-entry:hover {
+      color: #333;
+      border: 2px solid #333;
+      cursor: pointer; }
+
+.jobs-wrap h2 {
+  margin: 24px 0 0 0; }
+
+.jobs-wrap form input {
+  margin: 0 8px 10px 8px; }
+
 body {
   background-color: #E5F2C5; }
 

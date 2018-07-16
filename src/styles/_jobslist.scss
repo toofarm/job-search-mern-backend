@@ -1,0 +1,44 @@
+.single-job-entry {
+    margin: 0 auto;
+    display: block;
+    .jobs-txt-wrap {
+        display: inline-block;
+        margin: 15px 0;
+        padding: 12px;
+        border: 2px solid #666;
+        border-radius: 4px;
+        .job-item {
+            display: inline-block;
+            margin: 0 4px;
+            .job-item-label {
+                color: #666;
+            }
+        }
+        .delete-job-entry {
+            color: #666;
+            margin: 12px 0;
+            font-size: 18px;
+            background: none;
+            border: 2px solid #666;
+            border-radius: 4px;
+            transition: 0.3s all;
+        }
+        .delete-job-entry:hover {
+            color: #333;
+            border: 2px solid #333;
+            cursor: pointer;
+        }
+    }
+}
+
+.jobs-wrap {
+    h2 {
+        margin: 24px 0 0 0;
+    }
+    form {
+        input {
+            margin: 0 8px 10px 8px;
+        }
+    }
+}
+

@@ -10,12 +10,12 @@ const Navigation = ({ authUser }) =>
     <header>
         {authUser ?
             <div>
-                <h1 id="app-title"><Link to={routes.ACCOUNT}>The Endless Hunt</Link></h1>
+                <h1 id="app-title"><Link to={routes.LANDING}>The Endless Hunt</Link></h1>
                 <NavigationAuth />
             </div>
             :
             <div>
-                <h1 id="app-title"><Link to={routes.SIGN_IN}>The Endless Hunt</Link></h1>
+                <h1 id="app-title"><Link to={routes.LANDING}>The Endless Hunt</Link></h1>
                 <NavigationNonAuth />
             </div>
         }

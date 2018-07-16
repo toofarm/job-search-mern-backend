@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { 
-  Link,
-  withRouter,
+  withRouter
 } from 'react-router-dom'
 
 import { firebase } from '../firebase'
-import { auth } from '../firebase'
 import * as routes from '../constants/routes';
 
 class SignOutButton extends Component {
@@ -15,7 +13,6 @@ class SignOutButton extends Component {
   
   signOut = (e) => {
     e.preventDefault()
-    console.log('signing out')
 
     const {
       history,
