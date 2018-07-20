@@ -1,15 +1,16 @@
-// import * as firebase from './firebase';
+// import * as firebase from './firebase'
 import firebaseApp from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
+import 'firebase/storage'
 
 var config = {
-    apiKey: [REPLACE WITH API KEY],
-    authDomain: [REPLACE WITH AUTH DOMAIN],
-    databaseURL: [REPLACE WITH DB URL],
-    projectId: [REPLACE WITH PROJ ID],
-    storageBucket: [REPLACE WITH STORAGE BUCKET],
-    messagingSenderId: [REPLACE WITH ID]
+    apiKey: [],
+    authDomain: [],
+    databaseURL: [],
+    projectId: [],
+    storageBucket: [],
+    messagingSenderId: []
   }
 
   if (!firebaseApp.apps.length) {
@@ -18,8 +19,10 @@ var config = {
 
   const auth = firebaseApp.auth()
   const db = firebaseApp.database()
+  const storage = firebaseApp.storage()
 
   export {
       auth,
-      db
+      db,
+      storage
   }

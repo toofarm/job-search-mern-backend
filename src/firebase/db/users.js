@@ -31,3 +31,14 @@ export const onceGetUserJobs = (id) =>
 
 export const removeOneJob = (id, application) =>
   db.ref(`users/${id}/applications/${application}`).remove()
+
+export const editOneJob = (id, application, title, company) =>
+  db.ref(`users/${id}/applications/${application}`).update({
+    position: title,
+    company: company
+  })
+
+export const addResume = (id, application, filePath) =>
+  db.ref(`users/${id}/applications/${application}`).update({
+    resume: filePath
+  })

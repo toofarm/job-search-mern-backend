@@ -2,9 +2,9 @@ This is a web application, built in ReactJS, Firebase, and Express, that allows 
 
 The ReactJS build was initialized through Create React App.
 
-/////////////DEV STARTUP/////////////
+______________DEV STARTUP__________
 npm init
 npm start
 
-////////////BUILD///////////////////
+______________Build__________
 npm run build
