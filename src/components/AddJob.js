@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import JobEntry from './JobEntry'
 
+import { connect } from 'react-redux'
+import { compose } from 'recompose'
+
 import multer from 'multer';
 
 import { auth, users, storage } from '../firebase';
@@ -29,7 +32,6 @@ class AddJob extends Component {
     this.getJobsObject = this.getJobsObject.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
     this.editJob = this.editJob.bind(this)
-    this.submitDoc = this.submitDoc.bind(this)
   }
 
   getJobsObject (id) {
@@ -96,33 +98,6 @@ class AddJob extends Component {
     })
   }
 
-  submitDoc (e) {
-    let jobId = e.target.dataset.id
-    let id = this.props.userId
-    let file = document.getElementById(jobId + 'file').files[0]
-
-    const customMeta = {
-      'contentType': file.type
-    }
-    console.log(file)
-
-    var newPath = storage.resumes.child(jobId + '/' + file.name)
-    console.log(newPath.fullPath)
-
-    newPath.put(file).then(snapshot => {
-      console.log('Uploaded file')
-      users.addResume(id, jobId, newPath.fullPath).then(snapshot => {
-        console.log('saved file path')
-      }).catch(err => {
-        console.log(err.message)
-      })
-    }).catch(err => {
-      console.log(err.message)
-    })
-    
-
-  }
-
   componentDidMount () {
     let id = this.props.userId
     this.getJobsObject(id)
@@ -161,11 +136,12 @@ class AddJob extends Component {
               {Object.keys(this.state.jobs).map(key =>
                   <JobEntry key={key}
                       id={key}
+                      userId={this.props.userId}
                       position={this.state.jobs[key].position} 
                       company={this.state.jobs[key].company}
+                      resume={this.state.jobs[key].resume}
                       deleteJob={this.deleteJob}
-                      editJob={this.editJob}
-                      submitDoc={this.submitDoc} />
+                      editJob={this.editJob} />
               )}
             </div>}
         </div>
@@ -174,3 +150,4 @@ class AddJob extends Component {
 }
 
 export default AddJob;
+

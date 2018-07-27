@@ -42,3 +42,6 @@ export const addResume = (id, application, filePath) =>
   db.ref(`users/${id}/applications/${application}`).update({
     resume: filePath
   })
+
+export const deleteResume = (id, application) => 
+  db.ref(`users/${id}/applications/${application}/resume`).remove()

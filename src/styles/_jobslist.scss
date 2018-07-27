@@ -10,6 +10,9 @@
         .job-item {
             display: inline-block;
             margin: 0 4px;
+            .resume-link {
+                margin: 12px 0;
+            }
             .job-item-label {
                 color: #666;
                 margin-right: 5px;

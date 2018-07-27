@@ -85,6 +85,15 @@ header {
   color: $highlight-darker;
 }
 
+.dummy-link {
+  margin: 0 8px;
+}
+
+.dummy-link:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 //////////ANIMATIONS//////////////
 
 @keyframes App-logo-spin {

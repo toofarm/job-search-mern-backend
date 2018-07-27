@@ -61,6 +61,8 @@
     .single-job-entry .jobs-txt-wrap .job-item {
       display: inline-block;
       margin: 0 4px; }
+      .single-job-entry .jobs-txt-wrap .job-item .resume-link {
+        margin: 12px 0; }
       .single-job-entry .jobs-txt-wrap .job-item .job-item-label {
         color: #666;
         margin-right: 5px; }
@@ -171,6 +173,13 @@ header {
 .ui-info {
   font-style: italic;
   color: #0F646F; }
+
+.dummy-link {
+  margin: 0 8px; }
+
+.dummy-link:hover {
+  cursor: pointer;
+  text-decoration: underline; }
 
 @keyframes App-logo-spin {
   from {
