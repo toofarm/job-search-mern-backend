@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import JobEntry from './JobEntry'
+import { getJobs, deleteOneJob } from '../actions'
 
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
@@ -28,21 +29,8 @@ class AddJob extends Component {
     super(props);
 
     this.state = { ...INITIAL_STATE };
-
-    this.getJobsObject = this.getJobsObject.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
     this.editJob = this.editJob.bind(this)
-  }
-
-  getJobsObject (id) {
-    users.onceGetUserJobs(id).then(snapshot => {
-        this.setState({
-            jobs: snapshot.val()
-        })
-        console.log(this.state.jobs)
-    }).catch(error => {
-        console.log(error)
-    })
   }
 
   onSubmit = (e) => {
@@ -60,20 +48,13 @@ class AddJob extends Component {
   }
 
   deleteJob (e) {
+    const { sendDelete } = this.props
+    
     let jobId = e.target.dataset.id
     let id = this.props.userId
     console.log('Job id to remove: ' + jobId)
 
-    users.removeOneJob(id, jobId)
-
-    users.onceGetUserJobs(id).then(snapshot => {
-        this.setState({
-            jobs: snapshot.val()
-        })
-        console.log(this.state.jobs)
-    }).catch(error => {
-        console.log(error)
-    }) 
+    sendDelete(id, jobId)
   }
 
   editJob (e) {
@@ -99,8 +80,9 @@ class AddJob extends Component {
   }
 
   componentDidMount () {
+    const { getUserJobs } = this.props
     let id = this.props.userId
-    this.getJobsObject(id)
+    getUserJobs(id)
   }
 
   render() {
@@ -132,14 +114,14 @@ class AddJob extends Component {
                 Add job
                 </button>
             </form>
-            { !!this.state.jobs && <div className="jobs-wrap">
-              {Object.keys(this.state.jobs).map(key =>
+            { !!this.props.jobs && <div className="jobs-wrap">
+              {Object.keys(this.props.jobs).map(key =>
                   <JobEntry key={key}
                       id={key}
                       userId={this.props.userId}
-                      position={this.state.jobs[key].position} 
-                      company={this.state.jobs[key].company}
-                      resume={this.state.jobs[key].resume}
+                      position={this.props.jobs[key].position} 
+                      company={this.props.jobs[key].company}
+                      resume={this.props.jobs[key].resume}
                       deleteJob={this.deleteJob}
                       editJob={this.editJob} />
               )}
@@ -149,5 +131,14 @@ class AddJob extends Component {
   }
 }
 
-export default AddJob;
+const mapStateToProps = (state) => ({
+  jobs: state.jobsState.jobs
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getUserJobs: (id) => dispatch(getJobs(id)),
+  sendDelete: (id, jobId) => dispatch(deleteOneJob(id, jobId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddJob);
 

@@ -43,7 +43,7 @@ export class DashboardWidgets extends React.Component {
     }
 
     componentDidMount() {
-        const { onSetUsers } = this.props
+        // const { onSetUsers } = this.props
 
         users.onceGetUsers().then(snapshot => {
             let allUsers = snapshot.val()
