@@ -32,6 +32,10 @@ class JobEntry extends Component {
       console.log('Uploaded file')
       users.addResume(id, jobId, newPath.fullPath).then(snapshot => {
         console.log('saved file path')
+        let fileName = newPath.fullPath.split('/')[2]
+        this.setState({
+          resumeFilename: fileName
+        })
       }).catch(err => {
         console.log(err.message)
       })
@@ -65,8 +69,8 @@ class JobEntry extends Component {
 
     path.delete().then(() => {
       console.log('File deleted')
-      users.deleteResume(userId, jobId).then(snapshot => {
-        console.log(snapshot.val())
+      users.deleteResume(userId, jobId).then(() => {
+        console.log('Resume deleted from user object')
       }).catch(err => {
         console.log(err.message)
       })

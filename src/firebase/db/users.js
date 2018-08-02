@@ -19,11 +19,11 @@ export const updateUsername = (id, username) =>
   })
 
 // Jobs 
-
-export const doCreateJob = (id, title, company) =>
+export const doCreateJob = (id, title, company, date) =>
   users.child(id).child('applications').push().set({
     position: title,
-    company: company
+    company: company,
+    date: date
   })
 
 export const onceGetUserJobs = (id) =>

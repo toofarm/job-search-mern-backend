@@ -107,6 +107,11 @@
 .jobs-wrap form input {
   margin: 0 8px 10px 8px; }
 
+.jobs-wrap .sort-options {
+  list-style: none; }
+  .jobs-wrap .sort-options li {
+    display: inline-block; }
+
 body {
   background-color: #E5F2C5; }
 
@@ -180,6 +185,24 @@ header {
 .dummy-link:hover {
   cursor: pointer;
   text-decoration: underline; }
+
+.ghost-btn {
+  color: #666;
+  margin: 12px 8px;
+  padding: 7px;
+  font-size: 22px;
+  background: none;
+  border: 2px solid #666;
+  border-radius: 4px;
+  transition: 0.3s all; }
+
+.ghost-btn:hover {
+  color: #333;
+  border: 2px solid #333;
+  cursor: pointer; }
+
+.selected {
+  background-color: rgba(102, 102, 102, 0.2); }
 
 @keyframes App-logo-spin {
   from {

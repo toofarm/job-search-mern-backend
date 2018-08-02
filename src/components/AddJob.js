@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import JobEntry from './JobEntry'
-import { getJobs, deleteOneJob } from '../actions'
+import { getJobs, deleteOneJob, createOneJob, editOneJob, reorderJobs } from '../actions'
 
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
@@ -21,7 +21,8 @@ const INITIAL_STATE = {
   company: '',
   jobs: null,
   id: '',
-  updated: false
+  updated: false,
+  sortOrder: 'chrono'
 }
 
 class AddJob extends Component {
@@ -29,53 +30,77 @@ class AddJob extends Component {
     super(props);
 
     this.state = { ...INITIAL_STATE };
+
     this.deleteJob = this.deleteJob.bind(this)
     this.editJob = this.editJob.bind(this)
+    this.addNewJob = this.addNewJob.bind(this)
+    this.toggleJobsOrder = this.toggleJobsOrder.bind(this)
   }
 
-  onSubmit = (e) => {
+  addNewJob = (e) => {
     e.preventDefault()
-    let id = this.props.userId
-    let title = this.state.title
-    let company = this.state.company
 
-    users.doCreateJob(id, title, company).then(() => {
-        this.getJobsObject(id)
-    })
-    .catch(error => {
-        console.log(error)
-    })
+    const { createJob } = this.props
+
+    let date = new Date().getTime()
+    
+    let data = {}
+    let id = this.props.userId
+    data['title'] = this.state.title
+    data['company'] = this.state.company
+    data['date'] = date
+
+    createJob(id, data)
+    
   }
 
   deleteJob (e) {
     const { sendDelete } = this.props
     
     let jobId = e.target.dataset.id
-    let id = this.props.userId
-    console.log('Job id to remove: ' + jobId)
+    let userId = this.props.userId  
 
-    sendDelete(id, jobId)
+    sendDelete(userId, jobId)
   }
 
   editJob (e) {
-    let jobId = e.target.dataset.id
+    const { editOneJob } = this.props
+
+    let data = {}
+
     let id = this.props.userId
-    let title = document.getElementById(jobId + 'position').value
-    let company = document.getElementById(jobId + 'company').value
+    let jobId = e.target.dataset.id
+    data['jobId'] = jobId
+    data['title'] = document.getElementById(jobId + 'position').value
+    data['company'] = document.getElementById(jobId + 'company').value
 
     var self = this
 
-    users.editOneJob(id, jobId, title, company).then(snapshot => {
-      this.setState({
-        updated: true
-      })
-      setTimeout(function() {
-        self.setState({
-          updated: false
-        })
-      }, 5000)
-    }).catch(err => {
-      console.log(err)
+    editOneJob(id, data)
+    
+    this.setState({
+     updated: true
+    })
+
+    setTimeout(function() {
+      self.setState({
+      updated: false
+    })
+    }, 5000)
+
+  }
+
+  toggleJobsOrder (e) {
+    const { reorderJobs } = this.props
+
+    let order = e.target.dataset.order
+    let id = this.props.userId
+    let jobs = this.props.jobs
+
+    reorderJobs(id, order, jobs)
+
+    this.setState({
+      sortOrder: order
     })
   }
 
@@ -99,7 +124,7 @@ class AddJob extends Component {
         <div className="jobs-wrap">
             <h2>Add new job application</h2>
             {this.state.updated && <div className="crud-flag">Job apps updated!</div>}
-            <form onSubmit={this.onSubmit} className="login-form">
+            <form onSubmit={this.addNewJob} className="login-form">
                 <input
                 onChange={event => this.setState(byPropKey('title', event.target.value))}
                 type="text"
@@ -115,6 +140,18 @@ class AddJob extends Component {
                 </button>
             </form>
             { !!this.props.jobs && <div className="jobs-wrap">
+              <ul className="sort-options">
+                <li className={"ghost-btn " + (this.state.sortOrder === 'alpha' ? 'selected' : '')}
+                  data-order="alpha"
+                  onClick={this.toggleJobsOrder}>
+                  Sort jobs alpha
+                </li>
+                <li className={"ghost-btn " + (this.state.sortOrder === 'chrono' ? 'selected' : '')}
+                  data-order="chrono"
+                  onClick={this.toggleJobsOrder}>
+                  Sort jobs by date
+                </li>
+              </ul>
               {Object.keys(this.props.jobs).map(key =>
                   <JobEntry key={key}
                       id={key}
@@ -137,7 +174,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getUserJobs: (id) => dispatch(getJobs(id)),
-  sendDelete: (id, jobId) => dispatch(deleteOneJob(id, jobId))
+  sendDelete: (userId, jobId) => dispatch(deleteOneJob(userId, jobId)),
+  createJob: (id, data) => dispatch(createOneJob(id, data)),
+  editOneJob: (id, data) => dispatch(editOneJob(id, data)),
+  reorderJobs: (id, order, jobs) => dispatch(reorderJobs(id, order, jobs))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddJob);
