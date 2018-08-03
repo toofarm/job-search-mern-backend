@@ -6,6 +6,7 @@ import '../styles/App.css'
 
 import Navigation from './Navigation'
 import Dashboard from './Dashboard'
+import Profile from './Profile'
 import PasswordForget from './PasswordForget'
 import SignUpForm from './SignUpForm'
 import SignIn from './SignIn'
@@ -45,6 +46,10 @@ const App = ({ authUser }) =>
       <Route
         exact path={routes.HOME}
         component={() => <HomePage />}
+      />
+      <Route
+        exact path={routes.PROFILE}
+        component={() => <Profile />}
       />
     </div>
   </div>

@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 
@@ -32,18 +31,7 @@ export class DashboardWidgets extends React.Component {
         this.handleUserNameChange = this.handleUserNameChange.bind(this)
     }
 
-    handleUserNameChange (newName) {
-        this.setState({
-            userName: newName
-        })
-    }
-
-    handleNewJob (title, company) {
-        console.log(title, company)
-    }
-
     componentDidMount() {
-        // const { onSetUsers } = this.props
 
         users.onceGetUsers().then(snapshot => {
             let allUsers = snapshot.val()
@@ -66,23 +54,7 @@ export class DashboardWidgets extends React.Component {
     render() {
         return (
             <div>
-                <h2>Hello, {this.state.userName}</h2>
-                <div className="dashboard-wrap">
-                    <div className="dash-input-holder">
-                    <h3>Change password</h3>
-                        <PasswordChange />
-                    </div>
-                    <div className="dash-input-holder">
-                        <PasswordForget />
-                    </div>
-                    <div className="dash-input-holder">
-                        <h3>Update Username</h3>
-                        <UsernameChange userId={this.state.userId} 
-                            sendNameChange={this.handleUserNameChange} />
-                    </div>
-                </div>
-                { this.state.userRetrieved && <AddJob userId={this.state.userId}
-                    sendNewJob={this.handleNewJob} /> }
+                { this.state.userRetrieved && <AddJob userId={this.state.userId} /> }
             </div>
         )
     }

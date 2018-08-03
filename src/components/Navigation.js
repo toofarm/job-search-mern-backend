@@ -25,6 +25,7 @@ const NavigationAuth = () =>
     <ul className="main-nav">
         <li><Link to={routes.HOME}>Users</Link></li>
         <li><Link to={routes.ACCOUNT}>Account</Link></li>
+        <li><Link to={routes.PROFILE}>Profile</Link></li>
         <li><SignOutButton /></li>
     </ul>
 
